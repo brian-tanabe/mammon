@@ -14,8 +14,9 @@ jobs:
           RAILS_ENV: test
       - image: circleci/postgres:latest # database image
         environment: # environment variables for database
+          POSTGRES_USER: postgres
           POSTGRES_DB: mammon
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: "postgres"
     steps:
       # special step to check out source code to working directory
       - checkout
