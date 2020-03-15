@@ -1,0 +1,1 @@
+get 'home/index'
