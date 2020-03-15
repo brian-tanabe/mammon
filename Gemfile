@@ -56,6 +56,9 @@ end
 
 group :development, :test do
 
+
+	gem 'rspec_junit_formatter'
+
 	# rspec is our testing framework.  Placing it in the dev will prevent generators from having to run in test mode
 	# Note that rspec-rails 4.0 is still a pre release
 	# https://github.com/rspec/rspec-rails
