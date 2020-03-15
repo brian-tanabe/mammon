@@ -13,9 +13,9 @@ jobs:
           PGHOST: 127.0.0.1
           RAILS_ENV: test
       - image: circleci/postgres:latest # database image
-          environment: # environment variables for database
-            POSTGRES_DB: mammon
-            POSTGRES_PASSWORD: ""
+        environment: # environment variables for database
+          POSTGRES_DB: mammon
+          POSTGRES_PASSWORD: ""
     steps:
       # special step to check out source code to working directory
       - checkout
