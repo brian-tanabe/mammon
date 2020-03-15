@@ -47,8 +47,7 @@ jobs:
       # Setup the database
       - run:
           name: Database setup
-          command: bin/rails db:schema:load --trace
-          # command: bin/rails db:create db:migrate
+          command: bin/rails db:setup && bin/rails db:create && bin/rails db:migrate
 
       # Run tests
       - run:
