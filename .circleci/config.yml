@@ -12,7 +12,12 @@ jobs:
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
           RAILS_ENV: test
+      - image: circleci/postgres:latest # database image
+          environment: # environment variables for database
+            POSTGRES_DB: mammon
+            POSTGRES_PASSWORD: ""
     steps:
+      # special step to check out source code to working directory
       - checkout
 
       # Verifies we have the correct version of bundler installed and installs it if we don't
@@ -23,24 +28,28 @@ jobs:
             source $BASH_ENV
             gem install bundler
 
-      # Which version of bundler?
-      - run:
-          name: Which bundler?
-          command: bundle -v
-
       # Install Ruby dependencies
       - run:
           name: Bundle Install
           command: bundle check --path vendor/bundle || bundle install --deployment
 
+      # Install Yarn dependencies
       - run:
           name: Yarn Install
           command: yarn install --cache-folder ~/.cache/yarn
 
+      # Wait for the database to become available
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      # Setup the database
       - run:
           name: Database setup
-          command: bin/rails db:create && bin/rails db:migrate
+          command: bin/rails db:schema:load --trace
+          # command: bin/rails db:create db:migrate
 
+      # Run tests
       - run:
           name: Run rspec
           command: |
