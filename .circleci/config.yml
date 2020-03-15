@@ -4,10 +4,6 @@ orbs:
 
 jobs:
   build:
-    # Only build and test the master branch
-    branches:
-      only:
-        - master
     docker:
       - image: circleci/ruby:2.7.0-node
         environment: # environment variables for primary container
