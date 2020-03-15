@@ -2,10 +2,12 @@
   <a class="nav-link mx-3 dropdown-toggle" href="#" id="navbarDropdown"
      role="button" data-toggle="dropdown"
      aria-haspopup="true" aria-expanded="false">
-    <%#= current_user.name %>
-    Brian Tanabe
+    <%= current_user.name %>
   </a>
+
   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <%= link_to 'Edit profile', edit_user_registration_path, class: 'dropdown-item', method: :get %>
     <%= link_to 'Logout', logout_path, class: 'dropdown-item', method: :delete %>
   </div>
+
 </li>
