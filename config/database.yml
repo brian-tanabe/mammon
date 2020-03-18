@@ -17,6 +17,10 @@ test:
   <<: *default
   database: mammon_test
 
+# Heroku needs the database name and user set to these values
+# https://devcenter.heroku.com/articles/heroku-postgresql#connecting-in-rails
 production:
   <<: *default
-  database: mammon
+  url: ENV['DATABASE_URL']
+  database: app-dev
+  username: user
