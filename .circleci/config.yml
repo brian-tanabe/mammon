@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2
+  heroku: circleci/heroku@1.0.1
 
 jobs:
   build:
@@ -64,3 +65,14 @@ jobs:
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test_results
       # See https://circleci.com/docs/2.0/deployment-integrations/ for example deploy configs
+
+  workflows:
+    heroku_deploy:
+      jobs:
+        - build
+        - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+            requires:
+              - build
+            filters:
+              branches:
+                only: master
