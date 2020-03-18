@@ -2,7 +2,7 @@ default: &default
   adapter: postgresql
   timeout: 5000
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
   username: postgres
   password: postgres
 
@@ -21,6 +21,6 @@ test:
 # https://devcenter.heroku.com/articles/heroku-postgresql#connecting-in-rails
 production:
   <<: *default
-  url: ENV['DATABASE_URL']
+  url: <%= ENV.fetch('DATABASE_URL') %>
   database: app-dev
   username: user
