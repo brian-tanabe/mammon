@@ -12,6 +12,7 @@ jobs:
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
           RAILS_ENV: test
+          DATABASE_URL: postgres://postgres@127.0.0.1:5432/mammon
       - image: circleci/postgres:latest # database image
         environment: # environment variables for database
           POSTGRES_USER: postgres
