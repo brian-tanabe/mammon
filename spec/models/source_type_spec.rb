@@ -22,4 +22,18 @@ RSpec.describe SourceType, type: :model do
 
 	end
 
+	describe 'find' do
+
+		it 'should be able to find all source types by user' do
+			test_user = create(:user)
+			some_other_user = create(:user)
+
+			expected_source_types = create_list(:source_type, 5, user: test_user)
+			create_list(:source_type, 5, user: some_other_user)
+
+			expect(SourceType.where(user: test_user).all).to eq(expected_source_types)
+		end
+
+	end
+
 end

@@ -50,6 +50,9 @@ RSpec.configure do |config|
 	# triggering implicit auto-inclusion in groups with matching metadata.
 	config.shared_context_metadata_behavior = :apply_to_host_groups
 
+	# This turns off test report "truncation" in the report messages; I picked a comically large value
+	RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 99_999_999_999_999
+
 	# The settings below are suggested to provide a good initial experience
 	# with RSpec, but feel free to customize to your heart's content.
 =begin
