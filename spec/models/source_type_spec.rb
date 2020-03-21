@@ -13,6 +13,14 @@ RSpec.describe SourceType, type: :model do
 				expect(SourceType.find(source_type.id).name).to eq(source_type.name)
 			end
 
+			it 'should allow duplicate names across different users' do
+				source_type = create(:source_type)
+				another_source_type = create(:source_type, name: source_type.name)
+
+				expect(another_source_type.name).to eq(source_type.name)
+				expect(SourceType.find(another_source_type.id).name).to eq(another_source_type.name)
+			end
+
 		end
 
 		context 'when the source type is not valid' do
@@ -20,7 +28,7 @@ RSpec.describe SourceType, type: :model do
 			it 'should not allow redundant names' do
 				source_type = create(:source_type)
 
-				another_source_type = build(:source_type, name: source_type.name)
+				another_source_type = build(:source_type, user: source_type.user, name: source_type.name)
 				expect { another_source_type.save! }.to raise_error(ActiveRecord::RecordNotUnique)
 			end
 
