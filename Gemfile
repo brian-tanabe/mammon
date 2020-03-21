@@ -67,6 +67,10 @@ group :test do
 	# https://github.com/faker-ruby/faker
 	gem 'faker'
 
+	# Adds the assigns controller testing helper back to Rails
+	# https://github.com/rails/rails-controller-testing
+	gem 'rails-controller-testing'
+
 	gem 'selenium-webdriver'
 
 	# Easy installation and use of web drivers to run system tests with browsers
