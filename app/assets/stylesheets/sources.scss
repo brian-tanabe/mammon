@@ -1,3 +1,17 @@
-// Place all the styles related to the sources controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+@import "./variables";
+
+body {
+  font-family: 'Muli', sans-serif;
+  position: relative;
+}
+
+#header {
+  position: relative;
+}
+
+#add-button {
+  border-color: $lightBlueColor;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}

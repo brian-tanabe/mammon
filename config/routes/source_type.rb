@@ -1,0 +1,1 @@
+post 'source_types', to: 'sources#new_source_type', via: 'post'

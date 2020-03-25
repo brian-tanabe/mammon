@@ -1,3 +1,70 @@
 <%= render 'home/partials/nav' %>
 
-<h1>Sources</h1>
+<html>
+  <head>
+    <title>Sources</title>
+    <%#= javascript_pack_tag 'sources' %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row border-bottom" id="header">
+        <h1>Sources types</h1>
+        <button type="button" id="add-button" class="btn btn-default" data-toggle="modal" data-target="#addSourceTypeModal">Add</button>
+      </div>
+      <div class="row">
+        <%= render partial: 'sources/partials/table', locals: { items: @source_types } %>
+      </div>
+
+      <div class="row border-bottom" id="header">
+        <h1>Servicers</h1>
+        <button type="button" id="add-button" class="btn btn-default" data-toggle="modal" data-target="#addSourceTypeModal">Add</button>
+      </div>
+      <div class="row">
+        <%= render partial: 'sources/partials/table', locals: { items: @servicers } %>
+      </div>
+
+      <div class="row border-bottom" id="header">
+        <h1>Source</h1>
+        <button type="button" id="add-button" class="btn btn-default" data-toggle="modal" data-target="#addSourceTypeModal">Add</button>
+      </div>
+      <div class="row">
+        <%= render partial: 'sources/partials/table', locals: { items: @sources } %>
+      </div>
+
+    </div>
+  </body>
+</html>
+
+<!-- add source type modal -->
+<div class="modal" id="addSourceTypeModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <%= form_with model: @new_source_type do |f| %>
+
+        <div class="modal-body form-group">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon3">Source type name</span>
+            </div>
+            <%= f.text_field(:name, label: 'Name', class: 'form-control') %>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= button_to "Save", :source_types, class: 'btn btn-primary', type: 'button' %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
