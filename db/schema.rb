@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_21_190650) do
+ActiveRecord::Schema.define(version: 2020_03_28_010555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,22 @@ ActiveRecord::Schema.define(version: 2020_03_21_190650) do
     t.index ["user_id"], name: "index_sources_on_user_id"
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "source_id", null: false
+    t.string "name"
+    t.date "date"
+    t.integer "transaction_type", null: false
+    t.decimal "amount"
+    t.string "transaction_category"
+    t.string "transaction_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["source_id"], name: "index_transactions_on_source_id"
+    t.index ["transaction_id"], name: "index_transactions_on_transaction_id", unique: true
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -64,4 +80,6 @@ ActiveRecord::Schema.define(version: 2020_03_21_190650) do
   add_foreign_key "source_types", "users"
   add_foreign_key "sources", "servicers"
   add_foreign_key "sources", "users"
+  add_foreign_key "transactions", "sources"
+  add_foreign_key "transactions", "users"
 end

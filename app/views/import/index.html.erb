@@ -1,0 +1,44 @@
+<%= render 'home/partials/nav' %>
+
+
+<html>
+  <head>
+    <title>Import</title>
+    <%#= javascript_pack_tag 'import' %>
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="row border-bottom" id="header">
+        <h1>Import transactions</h1>
+      </div>
+
+      <div class="row" id="upload-transaction-form">
+
+        <%= form_with url: 'upload_transactions', multipart: true do |f| %>
+
+          <div class="form-group">
+            <div class="input-group mb-3">
+              <label for="records">Source</label>
+              <%= f.collection_select(:source_id, @sources, :id, :name, { class: 'selectpicker form-control', prompt: true }) %>
+            </div>
+
+            <div class="form-group mb-3">
+              <!-- onchange: 'file_field_input_changed(this)'-->
+              <%= f.file_field(:records) %>
+            </div>
+
+            <div class="form-group mb-3">
+              <%= f.submit "Import" %>
+            </div>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    </div>
+  </body>
+</html>
+
