@@ -12,9 +12,6 @@ class ImportController < ApplicationController
 		records = params[:records]
 		source_id = params[:source_id]
 
-		puts "records=[#{records.inspect}]"
-		puts "#{records.open.read}"
-
 		source = Source.find(source_id)
 		transaction_factory = FactoryLibrary.new.find_factory(source)
 		transactions = transaction_factory.build_all(records, current_user, source)
