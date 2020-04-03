@@ -11,8 +11,6 @@ class ChaseVisaTransactionFactory
 		# Create the transaction objects
 		transactions = []
 		transactions_hash.each do |transaction|
-			transaction_id = generate_transaction_id(transaction, transactions_hash)
-
 			transactions << Transaction.new(
 				# These are identical across transactions
 				user_id: user,
@@ -25,8 +23,7 @@ class ChaseVisaTransactionFactory
 				amount: transaction[:amount],
 				transaction_category: transaction[:transaction_category],
 
-				# TODO: ADD ID GENERATION LOGIC
-				transaction_id: transaction_id
+				transaction_id: generate_transaction_id(transaction, transactions_hash)
 			)
 		end
 
@@ -40,14 +37,8 @@ class ChaseVisaTransactionFactory
 	def parse_csv(csv_file)
 		csv_parser = CSV.read(csv_file, headers: true)
 
-		# TODO: REMOVE THIS DEBUGGING STATEMENT
-		puts "ChaseVisaTransactionFactory: csv_parser=#{csv_parser.headers}"
-
 		transactions_hash = []
 		csv_parser.each do |row|
-
-			puts "ChaseVisaTransactionFactory: row=#{row.inspect}"
-
 			# For now, we're ignoring the post_date
 			transaction_date = row[TRANSACTION_DATE]
 			post_date = row[POST_DATE]
@@ -70,13 +61,14 @@ class ChaseVisaTransactionFactory
 				amount: amount,
 				transaction_category: category
 			}
-
 		end
 
 		# Sort all transactions by transaction date
 		transactions_hash.sort_by! { |transaction| transaction[:date] }
 	end
 
+	# TODO: TAKE IN A LIST OF TRANSACTION OBJECTS INSTEAD
+	# TODO: MOVE TO ITS OWN CLASS
 	def generate_transaction_id(transaction_hash, transaction_list)
 
 		# Get all transactions in the same month
@@ -114,7 +106,6 @@ class ChaseVisaTransactionFactory
 			name: transaction_hash[:name]
 		}.hash.to_s
 
-
 		hash_string = {
 			year: transaction_hash[:date].year,
 			month: transaction_hash[:date].month,
@@ -124,9 +115,6 @@ class ChaseVisaTransactionFactory
 			amount: transaction_hash[:amount],
 			name: transaction_hash[:name]
 		}.to_s
-
-		# TODO: REMOVE THIS DEBUGGING STATEMENT
-		puts "ID GENERATION: hash_string=[#{hash_string}]"
 
 		Digest::MD5.hexdigest(hash_string)
 	end

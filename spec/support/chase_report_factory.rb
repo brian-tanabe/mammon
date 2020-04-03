@@ -1,19 +1,18 @@
 require 'csv'
 require 'securerandom'
+require 'tempfile'
 require 'uri'
 
 module ReportFactory
+	ONE_DAY = 1
 
-	def create_chase_report(transactions)
-
-		# Generate a random filename
-		filename = "#{SecureRandom.uuid}.csv"
+	def create_chase_report(filename, transactions)
 
 		# Sort input transactions by transaction date.  The report is sorted from oldest to youngest
 		transactions = transactions.sort_by(&:date)
 
 		# Create the csv file
-		CSV.open(filename, 'wb') do |csv|
+		CSV.open(filename, 'w') do |csv|
 
 			# Add the header
 			csv << ['Transaction Date', 'Post Date', 'Description', 'Category', 'Type', 'Amount']
@@ -31,11 +30,6 @@ module ReportFactory
 				csv << [transaction_date, post_date, description, category, type, amount]
 			end
 		end
-
-		# Return the filename.  The factory will open it
-		filename
 	end
-
-	ONE_DAY = 1
 
 end
