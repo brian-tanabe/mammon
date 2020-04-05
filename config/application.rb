@@ -17,6 +17,6 @@ module Mammon
 		# the framework and any gems in your application.
 
 		# Add the queries, policies, presenters, and services to the autoload path:
-		config.autoload_paths << Rails.root.join('app', 'queries')
+		config.autoload_paths << Rails.root.join('app', 'queries') << Rails.root.join('app', 'models', 'factories')
 	end
 end

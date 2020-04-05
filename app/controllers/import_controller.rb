@@ -1,5 +1,5 @@
 require 'source_queries'
-require 'factories/chase_visa_transaction_factory'
+require 'factories/factory_library'
 
 class ImportController < ApplicationController
 	before_action :authenticate_user!
@@ -16,7 +16,7 @@ class ImportController < ApplicationController
 		transaction_factory = FactoryLibrary.new.find_factory(source)
 		transactions = transaction_factory.build_all(records, current_user, source)
 
-		
+		Transaction.upsert_all(transactions)
 	end
 
 end
