@@ -18,5 +18,12 @@ module Mammon
 
 		# Add the queries, policies, presenters, and services to the autoload path:
 		config.autoload_paths << Rails.root.join('app', 'queries') << Rails.root.join('app', 'models', 'factories')
+
+		# When you generate models ActiveRecord will use Integer as the type for id by default.
+		# Changing this to use UUIDs instead
+		# https://lab.io/articles/2017/04/13/uuids-rails-5-1/
+		config.generators do |g|
+			g.orm :active_record, primary_key_type: :uuid
+		end
 	end
 end
